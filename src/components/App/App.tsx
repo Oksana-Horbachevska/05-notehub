@@ -7,7 +7,6 @@ import { fetchNotes } from "../../services/noteService";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import type { Note } from "../../types/note";
 
 import css from "./App.module.css";
 
