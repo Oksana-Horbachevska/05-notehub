@@ -1,25 +1,23 @@
+import type { DebouncedState } from "use-debounce";
 import css from "./SearchBox.module.css";
 
 interface SearchBoxProps {
-  onSearch: (query: string) => void;
+  value: string;
+  onSearch: DebouncedState<(newSearchQuery: string) => void>;
 }
 
-export default function SearchBox({ onSearch }: SearchBoxProps) {
-  const handleFormSearch = (formData: FormData) => {
-    const query = formData.get("query") as string;
-    onSearch(query);
+export default function SearchBox({ value, onSearch }: SearchBoxProps) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch(event.target.value);
   };
 
   return (
-    <form action={handleFormSearch} className={css.form}>
-      <input
-        className={css.input}
-        type="text"
-        name="query"
-        autoComplete="off"
-        placeholder="Search movies..."
-        autoFocus
-      />
-    </form>
+    <input
+      onChange={handleChange}
+      className={css.input}
+      type="text"
+      placeholder="Search notes"
+      defaultValue={value}
+    />
   );
 }
