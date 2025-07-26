@@ -1,3 +1,5 @@
+export type NoteTag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
+
 export interface Note {
   id: number;
   title: string;
@@ -13,8 +15,4 @@ export interface NewNoteData {
   tag: NoteTag;
   createdAt: string;
   updatedAt: string;
-}
-
-interface NoteTag {
-  tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 }
