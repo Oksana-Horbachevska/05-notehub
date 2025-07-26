@@ -3,14 +3,14 @@ import type { FormikHelpers } from "formik";
 import { useId } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as Yup from "yup";
-import type { NewNoteData } from "../../types/note";
+import type { NewNoteData, NoteTag } from "../../types/note";
 import { createNote } from "../../services/noteService";
 import css from "./NoteForm.module.css";
 
 interface NoteFormValues {
   title: string;
   content: string;
-  tag: string;
+  tag: NoteTag;
 }
 
 const initialValues: NoteFormValues = {
