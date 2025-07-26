@@ -1,5 +1,5 @@
 import SearchBox from "../SearchBox/SearchBox";
-import Pagination from "react-paginate";
+import Pagination from "../Pagination/Pagination";
 import NoteForm from "../NoteForm/NoteForm";
 import Modal from "../Modal/Modal";
 import NoteList from "../NoteList/NoteList";
@@ -13,7 +13,10 @@ import css from "./App.module.css";
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
-  const updateSearchQuery = useDebouncedCallback(setQuery, 300);
+  const updateSearchQuery = useDebouncedCallback((query: string) => {
+    setQuery(query);
+    setCurrentPage(1);
+  }, 300);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,15 +37,9 @@ export default function App() {
         <SearchBox onSearch={updateSearchQuery} value={query} />
         {isSuccess && data.totalPages > 1 && (
           <Pagination
-            pageCount={data.totalPages}
-            pageRangeDisplayed={5}
-            marginPagesDisplayed={1}
-            onPageChange={({ selected }) => setCurrentPage(selected + 1)}
-            forcePage={currentPage - 1}
-            containerClassName={css.pagination}
-            activeClassName={css.active}
-            nextLabel="→"
-            previousLabel="←"
+            totalPages={data.totalPages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
           />
         )}
         <button onClick={openModal} className={css.button}>

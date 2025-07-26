@@ -28,26 +28,27 @@ export async function fetchNotes(
     },
   };
 
-  const response = await axios.get("/notes", options);
+  const response = await axios.get<NoteResponse>("/notes", options);
   console.log(response.data);
   return response.data;
 }
 
-export async function createNote(noteData: NewNoteData) {
+export async function createNote(noteData: NewNoteData): Promise<Note> {
   const options = {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
   };
-  const response = await axios.post("/notes", noteData, options);
+  const response = await axios.post<Note>("/notes", noteData, options);
   return response.data;
 }
 
-export async function deleteNote(noteId: number) {
+export async function deleteNote(noteId: number): Promise<Note> {
   const options = {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
   };
-  await axios.delete(`/notes/${noteId}`, options);
+  const response = await axios.delete<Note>(`/notes/${noteId}`, options);
+  return response.data;
 }
